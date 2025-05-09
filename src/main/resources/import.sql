@@ -6,6 +6,14 @@ CREATE TABLE IF NOT EXISTS buku (
     tanggal_terbit DATE
 );
 
+CREATE TABLE temp_buku (
+    id BIGINT,
+    judul VARCHAR(255),
+    penulis VARCHAR(255),
+    penerbit VARCHAR(255),
+    tanggal_terbit DATE
+);
+
 
 
 INSERT INTO buku (judul, penulis, penerbit, tanggal_terbit) VALUES
