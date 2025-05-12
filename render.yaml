@@ -1,0 +1,9 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/renderinc/render-yaml-schemas/main/render-docker.schema.json
+services:
+  - type: web
+    name: quarkus-book-api
+    env: docker
+    plan: free
+    branch: master
+    dockerfilePath: Dockerfile
+    rootDir: .
