@@ -1,4 +1,13 @@
 *
+!mvnw
+!mvnw.cmd
+!pom.xml
+!src/**
+!Dockerfile
+!README.md
+!render.yaml
+
+# Hanya sertakan output build jika memang dibutuhkan
 !target/*-runner
 !target/*-runner.jar
 !target/lib/*
