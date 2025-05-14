@@ -4,6 +4,7 @@
 !pom.xml
 !src/**
 !Dockerfile
+!docker-compose.yml
 !README.md
 !render.yaml
 !.mvn/**
