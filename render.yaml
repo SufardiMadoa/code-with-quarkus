@@ -1,9 +1,10 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/renderinc/render-yaml-schemas/main/render-docker.schema.json
 services:
   - type: web
-    name: quarkus-book-api
-    env: docker
+    name: quarkus-app
+    env: java
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar target/quarkus-app/quarkus-run.jar
     plan: free
-    branch: master
-    dockerfilePath: Dockerfile
-    rootDir: .
+    envVars:
+      - key: QUARKUS_HTTP_PORT
+        value: 10000
