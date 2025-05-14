@@ -1,17 +1,11 @@
-# Tahap build: gunakan Maven dengan JDK 21
+# Build stage
 FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
 COPY . .
-RUN mvn package -DskipTests
+RUN ./mvnw package -DskipTests
 
-
-# Tahap run: gunakan JDK 21
-FROM eclipse-temurin:21-jdk
+# Run stage
+FROM eclipse-temurin:21
 WORKDIR /app
-COPY --from=build /app/target/*-runner.jar app.jar
-
-# JAVA_HOME biasanya sudah otomatis diatur di image ini, tapi bisa ditambahkan secara eksplisit jika perlu
-ENV JAVA_HOME=/opt/java/openjdk
-
-EXPOSE 8080
-CMD ["java", "-jar", "app.jar"]
+COPY --from=build /app/target/quarkus-app/ /app/
+CMD ["java", "-jar", "quarkus-run.jar"]

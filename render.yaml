@@ -1,10 +1,7 @@
 services:
   - type: web
     name: quarkus-app
-    env: java
-    buildCommand: ./mvnw clean package -DskipTests
+    env: docker
+    dockerfilePath: Dockerfile
+    buildCommand: ./mvnw package -DskipTests
     startCommand: java -jar target/quarkus-app/quarkus-run.jar
-    plan: free
-    envVars:
-      - key: QUARKUS_HTTP_PORT
-        value: 10000
