@@ -1,9 +1,9 @@
 package org.apptest.param;
 
+import java.util.Date;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
-import java.util.Date;
 
 public class BukuParam {
 
@@ -19,6 +19,5 @@ public class BukuParam {
     @NotNull(message = "Tanggal terbit tidak boleh kosong")
     public Date tanggal_terbit;
 
-    @NotNull(message = "ID jenis tidak boleh kosong")
-    public Long id_jenis;
+    
 }
