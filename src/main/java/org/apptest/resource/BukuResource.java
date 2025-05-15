@@ -13,6 +13,7 @@ import org.apptest.response.ApiResponse;
 import org.apptest.response.PagedResponse;
 import org.apptest.response.Pagination;
 
+import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
@@ -41,6 +42,8 @@ public class BukuResource {
     @Inject
     EntityManager em;
     // Get All data Buku
+
+    @PermitAll
     @GET
     @Path("/all")
     public Response getAll(@QueryParam("page") @DefaultValue("1") int page,
