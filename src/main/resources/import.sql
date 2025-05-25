@@ -14,7 +14,32 @@ CREATE TABLE temp_buku (
     tanggal_terbit DATE
 );
 
-
+CREATE TABLE users (
+    id UUID PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'UNVERIFIED', -- UNVERIFIED, VERIFIED, APPROVED
+    verification_token TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE refresh_tokens (
+    id VARCHAR(255) PRIMARY KEY,                    -- Unique token ID
+    user_id BIGINT NOT NULL,                       -- Foreign key ke user
+    token_hash VARCHAR(255) NOT NULL,              -- Hashed refresh token
+    expires_at TIMESTAMP NOT NULL,                 -- Token expiry
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,-- Waktu dibuat
+    revoked_at TIMESTAMP NULL,                     -- Waktu di-revoke (jika ada)
+    device_info VARCHAR(500),                      -- Info device/browser
+    ip_address VARCHAR(45),                        -- IP address saat login
+    last_used_at TIMESTAMP NULL,                   -- Terakhir digunakan
+    
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+CREATE INDEX idx_user_id ON refresh_tokens(user_id);
+CREATE INDEX idx_expires_at ON refresh_tokens(expires_at);
+CREATE INDEX idx_token_hash ON refresh_tokens(token_hash);
 
 
 INSERT INTO buku (judul, penulis, penerbit, tanggal_terbit) VALUES

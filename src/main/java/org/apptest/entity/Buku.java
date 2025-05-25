@@ -2,6 +2,7 @@ package org.apptest.entity;
 
 import java.util.Date;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,16 +11,18 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "buku")
-public class Buku {
-
+public class Buku extends PanacheEntityBase  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
 
     private String judul;
     private String penulis;
     private String penerbit;
     private Date tanggal_terbit;
+
+  
 
     // Getter dan Setter untuk id
     public Long getId() {
