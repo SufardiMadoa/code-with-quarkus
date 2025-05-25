@@ -13,6 +13,8 @@ import org.apptest.response.ApiResponse;
 import org.apptest.response.PagedResponse;
 import org.apptest.response.Pagination;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import io.quarkus.panache.common.Page;
 import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -44,30 +46,22 @@ public class BukuResource {
     // Get All data Buku
 
     @PermitAll
-    @GET
-    @Path("/all")
-    public Response getAll(@QueryParam("page") @DefaultValue("1") int page,
-            @QueryParam("pageSize") @DefaultValue("10") int pageSize) {
-        if (page < 1 || pageSize < 1) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(new PagedResponse<>(false, "Parameter page dan pageSize harus lebih besar dari 0", null,
-                            null))
-                    .build();
-        }
-        Long totalData = em.createQuery("SELECT COUNT(b) FROM Buku b", Long.class).getSingleResult();
-        // Hitung offset untuk pagination
-        int offset = (page - 1) * pageSize;
-        // Ambil data sesuai halaman
-        List<Buku> list = em.createQuery("FROM Buku b ORDER BY b.id", Buku.class)
-                .setFirstResult(offset)
-                .setMaxResults(pageSize)
-                .getResultList();
+ @GET
+@Path("/all")
+public Response getAll(@QueryParam("page") @DefaultValue("1") int page,
+                       @QueryParam("pageSize") @DefaultValue("10") int pageSize) {
 
-        // Buat objek pagination
-        Pagination pagination = new Pagination(totalData, page, pageSize);
-        // Response dengan data dan informasi pagination
-        return Response.ok(new PagedResponse<>(true, "Data buku ditemukan", list, pagination)).build();
-    }
+    if (page < 1 || pageSize < 1)
+        return Response.status(Response.Status.BAD_REQUEST)
+                .entity(new PagedResponse<>(false, "page & pageSize harus > 0", null, null)).build();
+
+    var panachePage = Buku.findAll().page(Page.of(page - 1, pageSize));
+    var list = panachePage.list();
+    var total = Buku.count();
+    var pagination = new Pagination(total, page, pageSize);
+
+    return Response.ok(new PagedResponse<>(true, "Berhasil", list, pagination)).build();
+}
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

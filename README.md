@@ -1,4 +1,11 @@
 # code-with-quarkus
+Folder Structure
+📁 entity          → Sesuai, tempat entity JPA/ORM-mu
+📁 param           → Tempat parameter request, valid
+📁 repository      → Sesuai, tempat repository JPA
+📁 resource        → Layer untuk REST endpoint
+📁 service         → Menyimpan business logic
+📁 util            → Menyimpan helper class seperti JWT
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 

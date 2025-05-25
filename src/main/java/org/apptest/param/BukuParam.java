@@ -19,5 +19,4 @@ public class BukuParam {
     @NotNull(message = "Tanggal terbit tidak boleh kosong")
     public Date tanggal_terbit;
 
-    
 }
