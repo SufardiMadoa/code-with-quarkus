@@ -8,6 +8,7 @@
 !README.md
 !render.yaml
 !.mvn/**
+!.env
 # Hanya sertakan output build jika memang dibutuhkan
 !target/*-runner
 !target/*-runner.jar
