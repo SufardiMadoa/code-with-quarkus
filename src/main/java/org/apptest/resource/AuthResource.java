@@ -52,10 +52,10 @@ public Response login(LoginParam param) {
     try {
         LoginResponse response = userService.login(param);
         return Response.ok(response).build();
-    } catch (WebApplicationException e) {
-        return Response.status(e.getResponse().getStatus())
-                       .entity(e.getMessage())
-                       .build();
+    } catch (Exception e) {
+        return Response.status(500)
+                .entity("Database Error: " + e.getMessage())
+                .build();
     }
 }
     //  @POST
