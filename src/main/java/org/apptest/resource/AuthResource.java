@@ -24,21 +24,25 @@ public class AuthResource {
     @Inject
     UserService userService;
 
-    @POST
+     @POST
     @Path("/register")
-    @Transactional
-    public Response register(RegisterParam request) {
-        try {
-            userService.register(request);
-            return Response.ok().entity("Register success. Please check your email.").build();
-        } catch (RuntimeException e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+    public Response register(RegisterParam param) {
+        String result = userService.register(param);
+        
+        if (result.equals("Registrasi berhasil")) {
+            return Response.ok()
+                    .entity("{\"message\": \"" + result + "\"}")
+                    .build();
+        } else {
+            return Response.status(400)
+                    .entity("{\"message\": \"" + result + "\"}")
+                    .build();
         }
     }
      @GET
     @Path("/verify")
     public Response verifyEmail(@QueryParam("token") String token) {
-        userService.verifyUser(token);
+        userService.verifyEmail(token);
         return Response.ok("Email berhasil diverifikasi").build();
     }
     
