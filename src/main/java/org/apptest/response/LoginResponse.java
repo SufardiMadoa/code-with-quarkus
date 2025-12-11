@@ -16,4 +16,16 @@ public class LoginResponse {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
     }
+
+    public static class RsvpStatsResponse {
+        public long hadir;
+        public long tidakHadir;
+        public long total;
+
+        public RsvpStatsResponse(long hadir, long tidakHadir) {
+            this.hadir = hadir;
+            this.tidakHadir = tidakHadir;
+            this.total = hadir + tidakHadir;
+        }
+    }
 }
