@@ -13,3 +13,4 @@ public class GuestRepository implements PanacheRepository<Guest> {
         return find("code", code).firstResultOptional();
     }
 }
+

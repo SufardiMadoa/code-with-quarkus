@@ -7,6 +7,7 @@ import jakarta.ws.rs.core.Response;
 import org.apptest.entity.Guest;
 import org.apptest.response.ApiResponse;
 import org.apptest.service.GuestService;
+import java.util.List;
 
 @Path("/guests")
 @Produces(MediaType.APPLICATION_JSON)
@@ -26,4 +27,9 @@ public class GuestResource {
         }
         return Response.ok(ApiResponse.ok(guest, "Guest ditemukan")).build();
     }
+    @GET
+    public List<Guest> getAll() {
+        return guestService.getAllGuests();
+    }
+
 }

@@ -4,6 +4,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.apptest.entity.Guest;
 import org.apptest.repository.GuestRepository;
 
+import java.util.List;
+
 @ApplicationScoped
 public class GuestService {
 
@@ -15,5 +17,12 @@ public class GuestService {
 
     public Guest findByCode(String code) {
         return guestRepository.findByCode(code).orElse(null);
+    }
+    public List<Guest> getAllGuests() {
+        // kalau GuestRepository extends PanacheRepository<Guest>
+        return guestRepository.listAll();
+
+        // Atau kalau kamu punya method khusus di repository:
+        // return guestRepository.listAllSortedByCode();
     }
 }
